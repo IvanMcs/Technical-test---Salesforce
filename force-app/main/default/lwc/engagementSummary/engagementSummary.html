@@ -1,0 +1,53 @@
+<template>
+    <lightning-card title="Engagement Summary" icon-name="custom:custom14">
+        <div class="slds-p-around_medium">
+            
+            <template if:true={stats}>
+                <div class="slds-grid slds-gutters slds-wrap">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                        <div class="slds-box slds-box_x-small slds-text-align_center">
+                            <p class="slds-text-heading_small slds-m-bottom_x-small">Opp Amount</p>
+                            <template if:true={oppAmount}>
+                                <lightning-formatted-number value={oppAmount} format-style="currency" currency-code="USD" class="slds-text-heading_medium"></lightning-formatted-number>
+                            </template>
+                            <template if:false={oppAmount}>
+                                <p class="slds-text-heading_medium">$0.00</p>
+                            </template>
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                        <div class="slds-box slds-box_x-small slds-text-align_center">
+                            <p class="slds-text-heading_small slds-m-bottom_x-small">Completed Tasks</p>
+                            <p class="slds-text-heading_medium">{stats.taskCount}</p>
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                        <div class="slds-box slds-box_x-small slds-text-align_center">
+                            <p class="slds-text-heading_small slds-m-bottom_x-small">Upcoming Events</p>
+                            <p class="slds-text-heading_medium">{stats.eventCount}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_medium slds-text-align_center">
+                    <lightning-button variant="brand" 
+                                      label="Quick Follow-Up Call" 
+                                      onclick={handleCreateTask}
+                                      disabled={isProcessing}>
+                    </lightning-button>
+                </div>
+            </template>
+
+            <template if:true={isProcessing}>
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </template>
+            
+            <template if:true={error}>
+                <p class="slds-text-color_error">{error}</p>
+            </template>
+
+        </div>
+    </lightning-card>
+</template>
